@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" direction="asc" sortable="id" (sort)="onSort($event)">ID</th>
+                <th scope="col" sortable="firstName" scope="col" (sort)="onSort($event)">First Name</th>
+                <th scope="col" sortable="lastName" scope="col" (sort)="onSort($event)">Last Name</th>
+                <th scope="col" sortable="age" scope="col" (sort)="onSort($event)">Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of pagedUsers">
+                <td>{{ user.id }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.age }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-3">
+            <ngb-pagination [collectionSize]="userList.users.length" [(page)]="page" [pageSize]="pageSize"
+                (pageChange)="refreshUsers()" [maxSize]="5">
+            </ngb-pagination>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-3">
+            <select title="pageSize" class="form-select" [(ngModel)]="pageSize" (ngModelChange)="refreshUsers()">
+                <option [ngValue]="2">2 items per page</option>
+                <option [ngValue]="4">4 items per page</option>
+                <option [ngValue]="6">6 items per page</option>
+            </select>
+        </div>
+    </div>
+</div>
