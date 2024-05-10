@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductRoot, UserRoot } from '../app.models';
+import { OnlineSiteVM, ProductRoot, UserRoot } from '../app.models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,10 @@ export class DataService {
 
   getUsers(): Observable<UserRoot> {
     return this.http.get<UserRoot>(`${this.baseUrl}/users`);
+  }
+
+  getOnlineSites(): Observable<Array<OnlineSiteVM>> {
+    return this.http.get<Array<OnlineSiteVM>>('assets/data/online-sites.json');
   }
 
 }

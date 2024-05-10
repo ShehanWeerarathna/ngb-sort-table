@@ -1,0 +1,64 @@
+<div class="row pt-1">
+    <div class="col-md-12">
+      <table class='table table-striped '  >
+        <thead >
+          <tr >
+            <!--<th  sortable="id" (sort)="onSortSiteList($event)">
+              <span class="table-header">ID</span>
+            </th>-->
+            <th direction="asc" sortable="Code" (sort)="onSortSiteList($event)" style="background-color:#0099CC; color:white;">
+              <span class=" change-cursor-pointer">Site Code</span>
+            </th>
+            <th sortable="Name" (sort)="onSortSiteList($event)" style="background-color:#0099CC !important; color:white;">
+              <span class="change-cursor-pointer">Site Name</span>
+            </th>
+            <th sortable="TownName" (sort)="onSortSiteList($event)" style="background-color:#0099CC !important; color:white;">
+              <span class="change-cursor-pointer">Town</span>
+            </th>
+            <th sortable="CustomerName" (sort)="onSortSiteList($event)" style="background-color:#0099CC !important; color:white;">
+              <span class="change-cursor-pointer">Customer</span>
+            </th>
+            <th sortable="StatusId" (sort)="onSortSiteList($event)" style="background-color:#0099CC !important; color:white;">
+              <span class="change-cursor-pointer">Status</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of modelListPaged">
+            <!--<td>{{ item.id }}</td>-->
+            <td>
+              <a [routerLink]="['/site', item.Id, { action: 'edit' }]" role="button" class="btn btn-link btn-sm" >
+                <span *ngIf="isStringNullOrEmpty(item.Code) == true">
+                  .....
+                </span>
+                <span *ngIf="isStringNullOrEmpty(item.Code) == false">
+                  {{  item.Code }}
+                </span>
+              </a>
+              <span >{{ item.Code }}</span>
+            </td>
+            <td>{{ item.Name }}</td>
+            <td>{{ item.TownName }}</td>
+            <td>
+              <ng-container *ngIf="item.CustomerId == -1 else singleCustomer ">
+                All Customers
+              </ng-container>
+              <ng-template #singleCustomer>
+                {{ item.CustomerName }}
+              </ng-template>
+            </td>
+            <td class="text-danger">{{ StatusIdStr(item.StatusId) }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="8" class="border-bottom-0">
+              <ngb-pagination [collectionSize]="modelList.length" [(page)]="page" [pageSize]="pageSize"
+                              (pageChange)="onPageSiteList()" [maxSize]="5">
+              </ngb-pagination>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
